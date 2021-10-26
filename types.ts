@@ -1,11 +1,12 @@
 export type ReadPost = {
-  id: string;
+  id: number;
   title: string;
   content: string;
   created_at: string;
 };
 
-export type Task = {
+export type ReadTask = {
+  id: number;
   title: string;
   created_at: string;
 };

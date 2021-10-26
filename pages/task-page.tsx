@@ -1,10 +1,20 @@
-import React from "react";
+import React, { VFC } from "react";
 import Layout from "../components/Layout";
 import Link from "next/link";
+import { getAllTasksData } from "../lib/tasks";
+import { ReadTask } from "../types";
+import Task from "../components/Task";
 
-const TaskPage = () => {
+const TaskPage: VFC<{ staticFilteredTasks: ReadTask[] }> = ({
+  staticFilteredTasks,
+}) => {
   return (
     <Layout title="Task Page">
+      <ul>
+        {staticFilteredTasks?.map((task) => (
+          <Task key={task.id} task={task} />
+        ))}
+      </ul>
       <Link href="/main-page">
         <div className="flex cursor-pointer mt-12">
           <svg
@@ -29,3 +39,9 @@ const TaskPage = () => {
 };
 
 export default TaskPage;
+export const getStaticProps = async () => {
+  const staticFilteredTasks = await getAllTasksData();
+  return {
+    props: { staticFilteredTasks },
+  };
+};

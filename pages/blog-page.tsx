@@ -2,13 +2,18 @@ import Layout from "../components/Layout";
 import Link from "next/link";
 import { getAllPostsData } from "../lib/posts";
 import Post from "../components/Post";
+import { ReadPost } from "../types";
+import { VFC } from "react";
 
-export default function BlogPage({ filteredPosts }: any) {
+type Props = {
+  filteredPosts: ReadPost[];
+};
+const BlogPage: VFC<Props> = ({ filteredPosts }) => {
   return (
     <Layout title="Blog page">
       <ul>
         {filteredPosts &&
-          filteredPosts.map((post: any) => <Post key={post.id} post={post} />)}
+          filteredPosts.map((post) => <Post key={post.id} post={post} />)}
       </ul>
       <Link href="/main-page">
         <div className="flex cursor-pointer mt-12">
@@ -31,7 +36,10 @@ export default function BlogPage({ filteredPosts }: any) {
       </Link>
     </Layout>
   );
-}
+};
+
+export default BlogPage;
+
 export async function getStaticProps() {
   const filteredPosts = await getAllPostsData();
   return {
