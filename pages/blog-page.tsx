@@ -1,10 +1,21 @@
-import React from "react";
+import React, { VFC } from "react";
 import Layout from "../components/Layout";
 import Link from "next/link";
+import { getAllPostsData } from "../lib/posts";
+import { ReadPost } from "../types";
+import Post from "../components/Post";
+type Props = {
+  filteredPosts: ReadPost[];
+};
 
-const BlogPage = () => {
+const BlogPage: VFC<Props> = ({ filteredPosts }) => {
   return (
     <Layout title="blog-page">
+      <ul>
+        {filteredPosts?.map((post) => (
+          <Post key={post.id} post={post} />
+        ))}
+      </ul>
       <Link href="/main-page">
         <div className="flex cursor-pointer mt-12">
           <svg
@@ -27,5 +38,11 @@ const BlogPage = () => {
     </Layout>
   );
 };
-
 export default BlogPage;
+
+export const getStaticProps = async () => {
+  const filteredPosts = await getAllPostsData();
+  return {
+    props: { filteredPosts },
+  };
+};

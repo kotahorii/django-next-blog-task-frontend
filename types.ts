@@ -1,4 +1,5 @@
-export type Post = {
+export type ReadPost = {
+  id: string;
   title: string;
   content: string;
   created_at: string;
