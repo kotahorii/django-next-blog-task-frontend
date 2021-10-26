@@ -3,6 +3,7 @@ import Layout from "../components/Layout";
 import React from "react";
 import Cookie from "universal-cookie";
 import Link from "next/link";
+import { RecoilRoot } from "recoil";
 
 const cookie = new Cookie();
 
